@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة إلكترونية لتشغيل الكباتن بشكل قانوني وتنظيمي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0a4d52;
+  --primary-dark:#063136;
+  --primary-mid:#0d6b72;
+  --primary-light:#e5f4f5;
+  --accent:#00d4a0;
+  --accent-2:#f5b400;
+  --accent-glow:rgba(0,212,160,.4);
+  --danger:#e63946;
+  --success:#0f9d58;
+  --text:#0c1f24;
+  --muted:#688087;
+  --line:#dfeaec;
+  --bg:#f2f7f8;
+  --white:#fff;
+  --radius:16px;
+  --mono:'JetBrains Mono',monospace;
+  --digit:'Orbitron',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.7;
+  font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+
+/* ==================== TOP LOGO BANNER ==================== */
+.top-banner{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 300px at 85% 0%,rgba(0,212,160,.28),transparent 60%),
+    radial-gradient(500px 300px at 10% 100%,rgba(245,180,0,.15),transparent 60%),
+    linear-gradient(140deg,#041f23 0%,var(--primary-dark) 45%,var(--primary) 100%);
+  padding:38px 22px 34px;
+  border-bottom:1px solid rgba(0,212,160,.25);
+}
+.top-banner::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,212,160,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,160,.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse at 50% 50%,#000 40%,transparent 80%);
+  pointer-events:none;
+}
+.top-banner::after{
+  content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+  border:1px solid rgba(0,212,160,.18);right:-120px;top:-120px;
+  pointer-events:none;
+}
+.banner-inner{
+  max-width:1240px;margin:0 auto;position:relative;z-index:3;
+  display:flex;align-items:center;justify-content:center;gap:28px;
+  flex-wrap:wrap;
+}
+
+/* ===== شعار رئيسي مميز ===== */
+.master-logo{
+  position:relative;flex:none;
+  width:118px;height:118px;
+  display:grid;place-items:center;
+}
+.master-logo .logo-halo{
+  position:absolute;inset:-10px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,212,160,.35) 0%,transparent 65%);
+  animation:halo 3.5s ease-in-out infinite;
+}
+@keyframes halo{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.15);opacity:.45}}
+.master-logo .logo-ring{
+  position:absolute;inset:-6px;border-radius:50%;
+  border:1.5px dashed rgba(0,212,160,.5);
+  animation:spin 22s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.master-logo svg{
+  width:100%;height:100%;position:relative;z-index:2;
+  filter:drop-shadow(0 8px 24px rgba(0,212,160,.35));
+}
+
+.banner-text{text-align:right;max-width:620px}
+.banner-text .kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,212,160,.14);border:1px solid rgba(0,212,160,.35);
+  color:#7cf5d4;font-size:12.5px;font-weight:800;
+  padding:6px 14px;border-radius:100px;margin-bottom:12px;letter-spacing:.3px;
+}
+.banner-text .kicker::before{
+  content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-glow);animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.banner-text h1{
+  font-size:32px;font-weight:900;line-height:1.3;letter-spacing:-.6px;
+  color:#fff;margin-bottom:8px;
+}
+.banner-text h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--accent),#7cf5d4);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.banner-text p{
+  font-size:15px;color:rgba(255,255,255,.75);font-weight:500;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.banner-text p span{
+  display:inline-flex;align-items:center;gap:6px;
+}
+.banner-text p span::before{
+  content:"◆";color:var(--accent);font-size:9px;
+}
+
+/* ==================== HEADER / NAV ==================== */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 2px 20px rgba(10,77,82,.06);
+}
+.nav{
+  max-width:1240px;margin:0 auto;padding:11px 22px;
+  display:flex;align-items:center;gap:16px;justify-content:space-between;
+}
+.nav-brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:15px;
+  color:var(--primary);letter-spacing:-.2px}
+.nav-brand svg{width:36px;height:36px;flex:none}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  padding:8px 14px;border-radius:9px;font-size:14.5px;font-weight:600;
+  color:#3a565d;transition:.2s;
+}
+.nav-links a:hover{background:var(--primary-light);color:var(--primary)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 24px;border-radius:11px;border:none;cursor:pointer;
+  font-family:inherit;font-size:15px;font-weight:700;transition:.22s;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),var(--primary-mid));
+  color:#fff;box-shadow:0 8px 22px rgba(10,77,82,.28);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(10,77,82,.38)}
+.btn-accent{
+  background:linear-gradient(135deg,var(--accent),#00b389);
+  color:#02231d;box-shadow:0 8px 22px rgba(0,212,160,.35);
+}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,212,160,.5)}
+.btn-ghost{background:#fff;color:var(--primary);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--primary);background:var(--primary-light)}
+.btn-sm{padding:9px 18px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+
+/* ==================== HERO ==================== */
+.hero{
+  background:
+    radial-gradient(900px 500px at 85% -15%,rgba(0,212,160,.15),transparent 55%),
+    radial-gradient(700px 400px at 5% 110%,rgba(245,180,0,.08),transparent 55%),
+    linear-gradient(150deg,var(--primary-dark) 0%,var(--primary) 55%,var(--primary-mid) 100%);
+  color:#fff;padding:66px 22px 90px;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%);
+  pointer-events:none;
+}
+.hero-inner{
+  max-width:1240px;margin:0 auto;position:relative;z-index:3;
+  display:grid;grid-template-columns:1.18fr .82fr;gap:54px;align-items:center;
+}
+.badge-top{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(0,212,160,.13);border:1px solid rgba(0,212,160,.32);
+  padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700;
+  margin-bottom:22px;color:#7cf5d4;
+}
+.dot-live{
+  width:8px;height:8px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-glow);animation:pulse 2s infinite;
+}
+.hero h2{
+  font-size:40px;line-height:1.36;font-weight:900;margin-bottom:20px;
+  letter-spacing:-.5px;
+}
+.hero h2 em{
+  font-style:normal;position:relative;
+  background:linear-gradient(135deg,var(--accent),#7cf5d4);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero h2 em::after{
+  content:"";position:absolute;bottom:2px;right:0;left:0;height:8px;
+  background:var(--accent);opacity:.18;border-radius:4px;z-index:-1;
+}
+.hero p.lead{
+  font-size:17px;color:rgba(255,255,255,.86);max-width:620px;margin-bottom:30px;
+  line-height:1.85;
+}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.hero-cta .btn-ghost{
+  background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.28);
+  backdrop-filter:blur(6px);
+}
+.hero-cta .btn-ghost:hover{background:rgba(255,255,255,.16);border-color:#fff}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:560px;
+}
+.stat-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:16px 14px;backdrop-filter:blur(8px);
+  position:relative;overflow:hidden;
+}
+.stat-card::before{
+  content:"";position:absolute;top:0;right:0;width:42px;height:3px;
+  background:linear-gradient(90deg,var(--accent),transparent);
+}
+.stat-card .num{
+  font-family:var(--digit);font-size:25px;font-weight:900;
+  color:var(--accent);display:block;line-height:1.2;letter-spacing:1px;
+}
+.stat-card .lbl{font-size:12px;color:rgba(255,255,255,.72);font-weight:600}
+
+.hero-card{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:22px;padding:28px;backdrop-filter:blur(14px);
+  box-shadow:0 30px 70px rgba(0,0,0,.25);
+}
+.hero-card h3{
+  font-size:16px;margin-bottom:20px;display:flex;align-items:center;gap:9px;
+  font-weight:800;color:#fff;
+}
+.hero-card h3 .ic-box{
+  width:30px;height:30px;border-radius:9px;background:var(--accent);
+  display:grid;place-items:center;color:#02231d;font-size:15px;font-weight:900;
+}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:14px}
+.check-list li{
+  display:flex;gap:11px;font-size:14.5px;color:rgba(255,255,255,.92);
+  align-items:flex-start;line-height:1.7;
+}
+.check-list li .ic{
+  width:22px;height:22px;border-radius:50%;background:rgba(0,212,160,.2);
+  color:var(--accent);display:grid;place-items:center;font-size:12px;
+  flex:none;margin-top:3px;font-weight:900;
+}
+
+/* ==================== DIGITAL STRIP ==================== */
+.digi-strip{
+  background:var(--primary-dark);
+  border-top:1px solid rgba(0,212,160,.2);
+  border-bottom:1px solid rgba(0,212,160,.2);
+  position:relative;overflow:hidden;
+}
+.digi-inner{
+  max-width:1240px;margin:0 auto;padding:22px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+}
+.digi-item{text-align:center;padding:8px 16px;position:relative}
+.digi-item:not(:last-child)::after{
+  content:"";position:absolute;left:0;top:20%;height:60%;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(0,212,160,.35),transparent);
+}
+.digi-item .val{
+  font-family:var(--digit);font-size:22px;font-weight:900;
+  color:var(--accent);display:block;letter-spacing:1px;
+}
+.digi-item .key{
+  font-size:12px;color:rgba(255,255,255,.6);font-weight:600;margin-top:2px;
+  display:block;
+}
+.digi-item.locked .val{
+  color:rgba(255,255,255,.35);
+  font-family:'Tajawal',sans-serif;font-size:20px;letter-spacing:0;
+}
+.admin-chip{
+  display:inline-flex;align-items:center;gap:7px;margin-top:6px;
+  font-family:inherit;font-size:11.5px;font-weight:700;
+  background:rgba(245,180,0,.14);border:1px solid rgba(245,180,0,.4);
+  color:var(--accent-2);padding:3px 11px;border-radius:100px;
+  cursor:pointer;transition:.2s;
+}
+.admin-chip:hover{background:rgba(245,180,0,.25)}
+
+/* ==================== SECTIONS ==================== */
+section{padding:66px 22px}
+.container{max-width:1240px;margin:0 auto}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 46px}
+.sec-head .tag{
+  display:inline-block;background:var(--primary-light);color:var(--primary);
+  font-size:12.5px;font-weight:800;padding:6px 16px;border-radius:100px;
+  margin-bottom:15px;letter-spacing:.3px;
+}
+.sec-head h3{font-size:31px;font-weight:900;margin-bottom:12px;letter-spacing:-.4px}
+.sec-head p{color:var(--muted);font-size:16px}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:28px 24px;position:relative;transition:.28s;overflow:hidden;
+}
+.card::before{
+  content:"";position:absolute;top:0;right:0;width:100%;height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--primary-mid));
+  transform:scaleX(0);transform-origin:right;transition:.35s;
+}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(10,77,82,.13);border-color:#c5dde0}
+.card:hover::before{transform:scaleX(1)}
+.card .num{
+  width:46px;height:46px;border-radius:13px;
+  background:linear-gradient(135deg,var(--primary-light),#d3ecee);
+  color:var(--primary);display:grid;place-items:center;
+  font-family:var(--digit);font-weight:900;margin-bottom:18px;font-size:18px;
+  border:1px solid rgba(10,77,82,.1);
+}
+.card h4{font-size:17.5px;margin-bottom:9px;font-weight:800}
+.card p{font-size:14px;color:var(--muted);line-height:1.8}
+
+.notice{
+  max-width:1240px;margin:0 auto;display:flex;gap:15px;align-items:flex-start;
+  background:linear-gradient(135deg,#fffaeb,#fef4d6);
+  border:1px solid #f5e3a8;border-right:5px solid var(--accent-2);
+  border-radius:14px;padding:20px 24px;font-size:14.5px;color:#6b5410;
+  box-shadow:0 6px 20px rgba(245,180,0,.1);
+}
+.notice .ic-warn{
+  width:34px;height:34px;border-radius:10px;background:var(--accent-2);
+  color:#fff;display:grid;place-items:center;font-size:18px;flex:none;font-weight:900;
+}
+.notice strong{display:block;margin-bottom:4px;font-weight:900;color:#5c4708}
+
+/* ==================== FORM ==================== */
+.form-wrap{
+  background:#fff;border-radius:22px;box-shadow:0 22px 60px rgba(10,77,82,.11);
+  border:1px solid var(--line);overflow:hidden;max-width:980px;margin:0 auto;
+}
+.form-head{
+  padding:28px 34px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#f8fcfd,#fff);
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.form-head h3{font-size:20px;font-weight:900;display:flex;align-items:center;gap:11px}
+.form-head h3 .bar{width:5px;height:24px;border-radius:3px;
+  background:linear-gradient(180deg,var(--accent),var(--primary-mid))}
+.form-head p{font-size:13.5px;color:var(--muted);font-weight:500;margin-top:2px}
+
+.progress{
+  display:flex;justify-content:space-between;position:relative;
+  padding:32px 34px 0;margin-bottom:10px;
+}
+.progress::before{
+  content:"";position:absolute;top:56px;right:calc(34px + 10%);left:calc(34px + 10%);
+  height:3px;background:var(--line);border-radius:3px;
+}
+.progress-fill{
+  position:absolute;top:56px;right:calc(34px + 10%);height:3px;
+  background:linear-gradient(90deg,var(--accent),var(--primary-mid));
+  border-radius:3px;transition:width .4s ease;width:0;z-index:1;
+}
+.p-item{position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:center;gap:10px;flex:1}
+.p-dot{
+  width:46px;height:46px;border-radius:50%;background:#fff;
+  border:3px solid var(--line);display:grid;place-items:center;
+  font-family:var(--digit);font-weight:700;color:#9aacb0;font-size:15px;
+  transition:.3s;
+}
+.p-item span{font-size:12px;color:var(--muted);font-weight:600;text-align:center}
+.p-item.active .p-dot{
+  border-color:var(--accent);color:var(--primary);
+  box-shadow:0 0 0 6px var(--accent-glow);background:#fff;
+}
+.p-item.active span{color:var(--primary);font-weight:800}
+.p-item.done .p-dot{
+  background:linear-gradient(135deg,var(--accent),#00b389);
+  border-color:var(--accent);color:#02231d;font-weight:900;
+}
+.p-item.done span{color:var(--primary);font-weight:700}
+
+form{padding:8px 34px 34px}
+.step{display:none;animation:fade .35s ease}
+.step.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.step-title{
+  font-size:19.5px;font-weight:900;margin:24px 0 4px;
+  display:flex;align-items:center;gap:11px;
+}
+.step-title .bar{
+  width:5px;height:23px;border-radius:3px;
+  background:linear-gradient(180deg,var(--accent),var(--primary-mid));
+}
+.step-sub{font-size:13.5px;color:var(--muted);margin-bottom:26px}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.field{margin-bottom:18px;position:relative}
+.field > label{
+  display:block;font-size:14px;font-weight:800;margin-bottom:9px;color:#204a52;
+}
+.req{color:var(--danger)}
+.field input[type=text],.field input[type=email],.field input[type=tel],
+.field input[type=date],.field input[type=number],.field select,.field textarea{
+  width:100%;padding:13px 16px;border:1.5px solid var(--line);
+  border-radius:12px;font-family:inherit;font-size:15px;background:#fbfdfd;
+  color:var(--text);transition:.2s;outline:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--accent);background:#fff;
+  box-shadow:0 0 0 4px var(--accent-glow);
+}
+.field textarea{resize:vertical;min-height:92px}
+.field select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23688087' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 15px center;padding-left:44px;
+}
+.err{display:none;color:var(--danger);font-size:12.5px;margin-top:6px;font-weight:700}
+.field.error .err{display:block}
+.field.error input,.field.error select,.field.error textarea{
+  border-color:var(--danger);background:#fff7f6;
+}
+.field.error .file-label{border-color:var(--danger);background:#fff7f6}
+
+.opts{display:flex;gap:12px;flex-wrap:wrap}
+.opt{
+  display:flex;align-items:center;gap:9px;padding:12px 17px;
+  border:1.5px solid var(--line);border-radius:12px;cursor:pointer;
+  font-size:14.5px;background:#fbfdfd;transition:.2s;font-weight:600;user-select:none;
+}
+.opt:hover{border-color:#a8cdd1;background:#fff}
+.opt input{accent-color:var(--accent);width:17px;height:17px;cursor:pointer;flex:none}
+.opt:has(input:checked){
+  border-color:var(--accent);background:linear-gradient(135deg,var(--primary-light),#f0fbf9);
+  color:var(--primary);font-weight:800;box-shadow:0 0 0 3px var(--accent-glow);
+}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+
+.file-label{
+  display:flex;align-items:center;gap:13px;padding:17px 19px;
+  border:2px dashed #c8dade;border-radius:13px;background:#fafcfd;
+  cursor:pointer;transition:.2s;
+}
+.file-label:hover{border-color:var(--accent);background:var(--primary-light)}
+.file-label input[type=file]{display:none}
+.file-ic{
+  width:40px;height:40px;border-radius:11px;
+  background:linear-gradient(135deg,var(--primary-light),#d3ecee);
+  color:var(--primary);display:grid;place-items:center;font-size:19px;flex:none;
+}
+.file-txt{
+  font-size:14px;color:var(--muted);flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;font-weight:600;
+}
+.file-field.has-file .file-label{
+  border-color:var(--success);border-style:solid;background:#f2fbf7;
+}
+.file-field.has-file .file-txt{color:var(--success);font-weight:800}
+.file-field.has-file .file-ic{background:#d9f2e8;color:var(--success)}
+
+.summary-box{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:24px}
+.summary-group{
+  background:linear-gradient(135deg,var(--primary-light),#f0fbf9);
+  padding:13px 22px;font-weight:900;font-size:14.5px;color:var(--primary);
+  border-bottom:1px solid var(--line);
+}
+.summary-row{
+  display:flex;justify-content:space-between;gap:18px;
+  padding:12px 22px;border-bottom:1px solid #f0f5f5;font-size:14.5px;
+}
+.summary-row:last-child{border-bottom:none}
+.summary-row .k{color:var(--muted);flex:none;font-weight:600}
+.summary-row .v{font-weight:800;text-align:left;word-break:break-word}
+
+.declare{
+  display:flex;gap:13px;align-items:flex-start;background:#f8fbfb;
+  border:1px solid var(--line);padding:17px 19px;border-radius:13px;
+  margin-bottom:14px;cursor:pointer;transition:.2s;
+}
+.declare:hover{border-color:#a8cdd1;background:#f5fbfb}
+.declare input{
+  width:19px;height:19px;accent-color:var(--accent);
+  margin-top:3px;flex:none;cursor:pointer;
+}
+.declare span{font-size:14px;line-height:1.8;color:#2c4a51;font-weight:500}
+.field.error .declare{border-color:var(--danger);background:#fff7f6}
+
+.form-nav{
+  display:flex;justify-content:space-between;gap:14px;margin-top:30px;
+  padding-top:26px;border-top:1px solid var(--line);flex-wrap:wrap;
+}
+.form-nav .spacer{flex:1}
+
+.success{display:none;padding:60px 34px;text-align:center}
+.success.show{display:block;animation:fade .45s ease}
+.suc-icon{
+  width:100px;height:100px;border-radius:50%;
+  background:linear-gradient(135deg,#e8f7f1,#d1f0e2);color:var(--success);
+  display:grid;place-items:center;font-size:48px;margin:0 auto 26px;
+  box-shadow:0 0 0 14px rgba(15,157,88,.08);
+}
+.success h3{font-size:27px;font-weight:900;margin-bottom:13px}
+.success p{color:var(--muted);max-width:570px;margin:0 auto 28px;font-size:15.5px;line-height:1.85}
+.ref-box{
+  display:inline-block;background:linear-gradient(135deg,var(--primary-light),#eafaf7);
+  border:1.5px dashed var(--accent);border-radius:16px;
+  padding:20px 42px;margin-bottom:32px;
+}
+.ref-box span{display:block;font-size:13px;color:var(--muted);margin-bottom:7px;font-weight:600}
+.ref-box strong{
+  font-family:var(--digit);font-size:27px;font-weight:900;
+  color:var(--primary);letter-spacing:2px;direction:ltr;display:block;
+}
+.next-steps{
+  text-align:right;max-width:640px;margin:0 auto 32px;background:#f8fbfb;
+  border:1px solid var(--line);border-radius:16px;padding:24px 28px;
+}
+.next-steps h4{font-size:16px;margin-bottom:15px;font-weight:900;
+  display:flex;align-items:center;gap:9px}
+.next-steps h4 .bar{width:4px;height:18px;border-radius:3px;background:var(--accent)}
+.next-steps ol{
+  padding-right:22px;display:flex;flex-direction:column;gap:11px;
+  font-size:14.5px;color:#2c4a51;
+}
+.next-steps ol li::marker{color:var(--accent);font-weight:900}
+
+.faq{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:13px}
+details{
+  background:#fff;border:1px solid var(--line);border-radius:15px;
+  padding:19px 24px;transition:.2s;
+}
+details[open]{border-color:#a8cdd1;box-shadow:0 12px 32px rgba(10,77,82,.09)}
+details summary{
+  cursor:pointer;font-weight:800;font-size:15.5px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+details summary::-webkit-details-marker{display:none}
+details summary::after{
+  content:"+";font-size:24px;color:var(--accent);font-weight:400;
+  transition:.2s;flex:none;line-height:1;
+}
+details[open] summary::after{content:"−"}
+details p{margin-top:13px;color:var(--muted);font-size:14.5px;line-height:1.9}
+
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.contact-card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:30px 26px;text-align:center;transition:.3s;position:relative;
+  overflow:hidden;text-decoration:none;display:block;
+}
+.contact-card::before{
+  content:"";position:absolute;top:0;right:0;left:0;height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--primary-mid));
+  transform:scaleX(0);transform-origin:right;transition:.35s;
+}
+.contact-card:hover{
+  transform:translateY(-6px);box-shadow:0 22px 50px rgba(10,77,82,.14);
+  border-color:#a8cdd1;
+}
+.contact-card:hover::before{transform:scaleX(1)}
+.contact-card .cc-ic{
+  width:64px;height:64px;border-radius:18px;margin:0 auto 18px;
+  display:grid;place-items:center;font-size:28px;
+}
+.cc-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;
+  box-shadow:0 10px 24px rgba(37,211,102,.32)}
+.cc-email{background:linear-gradient(135deg,var(--primary-mid),var(--primary));
+  color:#fff;box-shadow:0 10px 24px rgba(10,77,82,.28)}
+.contact-card h4{font-size:17px;font-weight:900;margin-bottom:8px}
+.contact-card p{font-size:14px;color:var(--muted);line-height:1.75}
+.contact-card .num-badge{
+  font-family:var(--mono);font-size:17px;font-weight:700;color:var(--primary);
+  direction:ltr;display:block;margin-top:10px;letter-spacing:.5px;
+  background:var(--primary-light);padding:8px 14px;border-radius:9px;
+}
+.contact-card .num-badge.email{
+  font-family:var(--mono);font-size:14px;word-break:break-all;
+}
+
+/* ==================== ADMIN MODAL ==================== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(4,31,35,.85);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.show{display:flex;animation:fade .3s ease}
+.modal{
+  background:#fff;border-radius:20px;padding:34px;max-width:420px;width:100%;
+  box-shadow:0 30px 80px rgba(0,0,0,.4);position:relative;
+  border-top:5px solid var(--accent);
+}
+.modal h3{
+  font-size:20px;font-weight:900;margin-bottom:8px;
+  display:flex;align-items:center;gap:10px;
+}
+.modal h3 .ic-lock{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-2),#e0a300);
+  color:#fff;display:grid;place-items:center;font-size:17px;
+}
+.modal p.sub{font-size:13.5px;color:var(--muted);margin-bottom:22px}
+.modal label{font-size:14px;font-weight:800;margin-bottom:8px;display:block;color:#204a52}
+.modal input{
+  width:100%;padding:13px 16px;border:1.5px solid var(--line);
+  border-radius:12px;font-family:inherit;font-size:15px;
+  background:#fbfdfd;outline:none;transition:.2s;margin-bottom:14px;
+}
+.modal input:focus{border-color:var(--accent);background:#fff;
+  box-shadow:0 0 0 4px var(--accent-glow)}
+.modal-msg{
+  font-size:13px;font-weight:700;padding:10px 14px;border-radius:9px;
+  margin-bottom:14px;display:none;
+}
+.modal-msg.err{display:block;color:var(--danger);background:#fef2f1;
+  border:1px solid #fbd5d1}
+.modal-msg.ok{display:block;color:var(--success);background:#f0fbf6;
+  border:1px solid #c8ecd9}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap}
+.modal-actions .btn{flex:1;min-width:120px}
+.modal-close{
+  position:absolute;top:14px;left:14px;
+  width:34px;height:34px;border-radius:9px;border:none;cursor:pointer;
+  background:#f0f5f5;color:var(--muted);font-size:18px;
+  display:grid;place-items:center;transition:.2s;
+}
+.modal-close:hover{background:#e2eaea;color:var(--text)}
+.modal-hint{
+  font-size:12px;color:var(--muted);margin-top:14px;text-align:center;
+  padding-top:14px;border-top:1px dashed var(--line);
+}
+
+/* admin reveal animation */
+@keyframes reveal{
+  from{opacity:0;transform:translateY(6px);filter:blur(4px)}
+  to{opacity:1;transform:none;filter:none}
+}
+.digi-item.revealed .val{
+  animation:reveal .5s ease;
+  color:var(--accent);
+  font-family:var(--digit);font-size:22px;
+}
+
+.wa-float{
+  position:fixed;bottom:26px;left:26px;z-index:200;
+  display:flex;flex-direction:column;gap:11px;
+}
+.wa-btn{
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,#25D366,#128C7E);
+  display:grid;place-items:center;color:#fff;font-size:28px;
+  box-shadow:0 10px 28px rgba(37,211,102,.5);
+  transition:.25s;cursor:pointer;border:none;position:relative;
+}
+.wa-btn:hover{transform:scale(1.1)}
+.wa-btn::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:2px solid #25D366;animation:ring 2s infinite;
+}
+@keyframes ring{
+  0%{transform:scale(1);opacity:.7}
+  100%{transform:scale(1.55);opacity:0}
+}
+.wa-tip{
+  position:absolute;left:70px;top:50%;transform:translateY(-50%);
+  background:var(--primary-dark);color:#fff;padding:7px 14px;
+  border-radius:9px;font-size:13px;font-weight:700;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:.25s;
+}
+.wa-btn:hover .wa-tip{opacity:1;left:74px}
+
+footer{
+  background:linear-gradient(160deg,var(--primary-dark),#041f23);
+  color:rgba(255,255,255,.72);padding:52px 22px 26px;margin-top:20px;
+  position:relative;overflow:hidden;
+}
+footer::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,212,160,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,160,.04) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none;
+}
+.foot-inner{
+  max-width:1240px;margin:0 auto;position:relative;z-index:2;
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;
+}
+footer h5{
+  color:#fff;font-size:15.5px;margin-bottom:16px;font-weight:900;
+  display:flex;align-items:center;gap:9px;
+}
+footer h5 .bar{width:4px;height:16px;border-radius:3px;background:var(--accent)}
+footer p{font-size:14px;line-height:1.95}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px}
+footer ul li a{transition:.2s}
+footer ul li a:hover{color:var(--accent);padding-right:5px}
+.foot-wa{
+  display:inline-flex;align-items:center;gap:9px;margin-top:14px;
+  background:rgba(37,211,102,.14);border:1px solid rgba(37,211,102,.35);
+  color:#7cf5d4;padding:9px 17px;border-radius:10px;font-size:14px;
+  font-weight:700;font-family:var(--mono);direction:ltr;transition:.2s;
+}
+.foot-wa:hover{background:rgba(37,211,102,.24)}
+.foot-bottom{
+  max-width:1240px;margin:34px auto 0;padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.1);
+  text-align:center;font-size:13px;color:rgba(255,255,255,.45);
+  position:relative;z-index:2;
+}
+.foot-admin{
+  display:inline-flex;align-items:center;gap:7px;margin-top:10px;
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.5);padding:5px 13px;border-radius:100px;
+  font-size:12px;font-weight:700;cursor:pointer;transition:.2s;
+  font-family:inherit;
+}
+.foot-admin:hover{border-color:var(--accent-2);color:var(--accent-2)}
+
+@media(max-width:1020px){
+  .hero-inner{grid-template-columns:1fr;gap:38px}
+  .hero h2{font-size:33px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .foot-inner{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .digi-inner{grid-template-columns:repeat(2,1fr);gap:14px}
+  .digi-item:nth-child(2)::after{display:none}
+  .banner-text h1{font-size:27px}
+}
+@media(max-width:760px){
+  .nav-links{display:none}
+  .hero{padding:52px 18px 72px}
+  .hero h2{font-size:26px}
+  .hero p.lead{font-size:15.5px}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  section{padding:46px 16px}
+  .sec-head h3{font-size:24px}
+  form{padding:8px 18px 26px}
+  .form-head{padding:20px}
+  .progress{padding:22px 12px 0}
+  .progress::before,.progress-fill{right:calc(12px + 10%);left:calc(12px + 10%)}
+  .p-item span{display:none}
+  .p-dot{width:40px;height:40px;font-size:13px}
+  .form-nav{flex-direction:column-reverse}
+  .form-nav .btn{width:100%}
+  .form-nav .spacer{display:none}
+  .foot-inner{grid-template-columns:1fr;gap:28px}
+  .success{padding:44px 18px}
+  .summary-row{flex-direction:column;gap:3px}
+  .summary-row .v{text-align:right}
+  .wa-float{bottom:18px;left:18px}
+  .wa-btn{width:52px;height:52px;font-size:24px}
+  .digi-inner{grid-template-columns:1fr 1fr;padding:16px}
+  .digi-item .val{font-size:19px}
+  .top-banner{padding:28px 16px 26px}
+  .banner-inner{gap:18px}
+  .master-logo{width:92px;height:92px}
+  .banner-text{text-align:center}
+  .banner-text h1{font-size:22px}
+  .banner-text p{justify-content:center;font-size:13.5px}
+  .nav-brand span{display:none}
+}
+@media print{
+  header,.top-banner,.hero,.digi-strip,.form-head,.progress,.form-nav,#faq,.wa-float,footer,.notice{display:none!important}
+  .form-wrap{box-shadow:none;border:none}
+  .success{display:block!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGO DEFS (SVG) ==================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d6b72"/>
+      <stop offset="100%" stop-color="#041f23"/>
+    </linearGradient>
+    <linearGradient id="wheelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00d4a0"/>
+      <stop offset="100%" stop-color="#7cf5d4"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5b400"/>
+      <stop offset="100%" stop-color="#e0a300"/>
+    </linearGradient>
+
+    <!-- الشعار الرئيسي: درع + عجلة قيادة + طريق + علامة صح -->
+    <symbol id="logoMark" viewBox="0 0 120 120">
+      <!-- الدرع الخارجي -->
+      <path d="M60 3 L107 20 V57 C107 87 86 106 60 117 C34 106 13 87 13 57 V20 Z"
+            fill="url(#shieldGrad)" stroke="url(#wheelGrad)" stroke-width="3"/>
+      <!-- إطار داخلي -->
+      <path d="M60 12 L98 26 V57 C98 81 81 97 60 106 C39 97 22 81 22 57 V26 Z"
+            fill="none" stroke="rgba(0,212,160,.35)" stroke-width="1.5"/>
+
+      <!-- الطريق في الأسفل -->
+      <path d="M38 92 Q60 84 82 92" fill="none" stroke="rgba(0,212,160,.55)"
+            stroke-width="3" stroke-linecap="round"/>
+      <line x1="60" y1="87" x2="60" y2="92" stroke="#f5b400" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="48" y1="88" x2="48" y2="92" stroke="#f5b400" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="72" y1="88" x2="72" y2="92" stroke="#f5b400" stroke-width="2.5" stroke-linecap="round"/>
+
+      <!-- عجلة القيادة -->
+      <circle cx="60" cy="52" r="26" fill="none" stroke="url(#wheelGrad)" stroke-width="5"/>
+      <circle cx="60" cy="52" r="9" fill="url(#wheelGrad)"/>
+      <line x1="60" y1="43" x2="60" y2="27" stroke="url(#wheelGrad)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="52" y1="57" x2="37" y2="65" stroke="url(#wheelGrad)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="68" y1="57" x2="83" y2="65" stroke="url(#wheelGrad)" stroke-width="5" stroke-linecap="round"/>
+
+      <!-- شارة صح ذهبية -->
+      <circle cx="88" cy="82" r="15" fill="url(#goldGrad)" stroke="#041f23" stroke-width="2.5"/>
+      <path d="M81 82 L86 87 L96 77" fill="none" stroke="#041f23"
+            stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ==================== TOP LOGO BANNER ==================== -->
+<div class="top-banner">
+  <div class="banner-inner">
+    <div class="master-logo">
+      <div class="logo-halo"></div>
+      <div class="logo-ring"></div>
+      <svg viewBox="0 0 120 120" aria-label="شعار المنصة">
+        <use href="#logoMark"/>
+      </svg>
+    </div>
+    <div class="banner-text">
+      <span class="kicker">منصة رسمية معتمدة</span>
+      <h1>منصة إلكترونية لتشغيل الكباتن <em>بشكل قانوني وتنظيمي</em></h1>
+      <p>
+        <span>تشغيل قانوني معتمد</span>
+        <span>إجراءات إلكترونية بالكامل</span>
+        <span>دعم فني 24 ساعة</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HEADER / NAV ==================== -->
+<header>
+  <div class="nav">
+    <div class="nav-brand">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <use href="#logoMark"/>
+      </svg>
+      <span>منصة تشغيل الكباتن</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#how">كيف تعمل</a>
+      <a href="#register">التسجيل</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+      <a href="#contact">تواصل</a>
+    </nav>
+    <a href="#register" class="btn btn-primary btn-sm">ابدأ التسجيل</a>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="badge-top">
+        <span class="dot-live"></span>
+        التسجيل مفتوح · المرحلة الأولى
+      </div>
+      <h2>
+        منصة إلكترونية لتشغيل الكباتن<br>
+        <em>بشكل قانوني وتنظيمي</em>
+      </h2>
+      <p class="lead">
+        نمنح الكباتن وأصحاب المركبات العاملين على تطبيقات النقل الذكية فرصة حقيقية
+        لتصويب أوضاعهم التشغيلية، والانطلاق في عملهم بغطاء قانوني كامل، وفق الأطر
+        التنظيمية المعتمدة.
+      </p>
+      <div class="hero-cta">
+        <a href="#register" class="btn btn-accent">سجّل الآن مجاناً ←</a>
+        <a href="#how" class="btn btn-ghost">كيف تعمل المنصة؟</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="num" data-count="5">0</span>
+          <span class="lbl">دقائق للتسجيل</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" data-count="48">0</span>
+          <span class="lbl">ساعة للمراجعة</span>
+        </div>
+        <div class="stat-card">
+          <span class="num" data-count="100">0</span>
+          <span class="lbl">% إلكتروني</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3><span class="ic-box">✓</span> ماذا تحصل عليه؟</h3>
+      <ul class="check-list">
+        <li><span class="ic">✓</span> تسوية الوضع التشغيلي والحماية القانونية أثناء العمل</li>
+        <li><span class="ic">✓</span> ترخيص مزاولة المهنة للمركبة والسائق بشكل رسمي</li>
+        <li><span class="ic">✓</span> تغطية تأمينية شاملة للمركبة والركاب بعد التصويب</li>
+        <li><span class="ic">✓</span> تجنّب المخالفات والغرامات المترتبة على مزاولة العمل دون ترخيص</li>
+        <li><span class="ic">✓</span> برامج تدريب وتأهيل معتمدة للكباتن</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DIGITAL STRIP (public info + admin-only stats) ==================== -->
+<div class="digi-strip">
+  <div class="digi-inner">
+    <!-- عام: يظهر للجميع -->
+    <div class="digi-item">
+      <span class="val" data-count="24">0</span>
+      <span class="key">ساعة دعم فني</span>
+    </div>
+    <!-- عام: يظهر للجميع -->
+    <div class="digi-item">
+      <span class="val" data-count="12">0</span>
+      <span class="key">محافظة مغطاة</span>
+    </div>
+    <!-- للأدمن فقط: عدد الكباتن المسجلين -->
+    <div class="digi-item locked" id="statCaptains">
+      <span class="val">— — —</span>
+      <span class="key">كابتن مسجّل</span>
+      <button type="button" class="admin-chip" data-open-admin="captains">🔒 للأدمن</button>
+    </div>
+    <!-- للأدمن فقط: عدد الطلبات المصوّبة -->
+    <div class="digi-item locked" id="statLegalized">
+      <span class="val">— — —</span>
+      <span class="key">طلب تم تصويبه</span>
+      <button type="button" class="admin-chip" data-open-admin="legalized">🔒 للأدمن</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== NOTICE ==================== -->
+<section style="padding:36px 22px 0">
+  <div class="notice">
+    <span class="ic-warn">!</span>
+    <div>
+      <strong>تنبيه هام</strong>
+      هذه المنصة مجانية بالكامل ولا تتطلب أي رسوم أو مدفوعات. لا تتعامل مع أي وسيط يطلب
+      مقابلًا ماليًا مقابل التسجيل أو تسريع المعاملة. جميع البيانات المقدّمة تُعالج بسرّية
+      تامة وتُستخدم لأغراض التصويب القانوني فقط.
+    </div>
+  </div>
+</section>
+
+<!-- ==================== HOW IT WORKS ==================== -->
+<section id="how">
+  <div class="container">
+    <div class="sec-head">
+      <span class="tag">خطوات بسيطة</span>
+      <h3>كيف تعمل المنصة؟</h3>
+      <p>أربع خطوات فقط تفصلك عن تصويب وضعك التشغيلي والحصول على التراخيص اللازمة.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h4>التسجيل الإلكتروني</h4>
+        <p>أدخل بياناتك الشخصية وبيانات مركبتك وتفاصيل عملك على تطبيقات النقل الذكية.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h4>رفع الوثائق</h4>
+        <p>أرفق صورة الهوية، رخصة القيادة، وأوراق ملكية المركبة بصيغة صورة أو PDF.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h4>مراجعة الطلب</h4>
+        <p>تدرس الجهة المختصة طلبك وتتحقق من البيانات خلال 48 ساعة عمل من تاريخ الإرسال.</p>
+      </div>
+      <div class="card">
+        <div class="num">04</div>
+        <h4>تصويب الوضع</h4>
+        <p>استلام إشعار بالموافقة وموعد استكمال الإجراءات واستلام الترخيص الرسمي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== REGISTRATION ==================== -->
+<section id="register" style="padding-top:20px">
+  <div class="container">
+    <div class="sec-head">
+      <span class="tag">استمارة التسجيل</span>
+      <h3>طلب تصويب الوضع التشغيلي</h3>
+      <p>يرجى تعبئة الحقول المعلّمة بعلامة <span class="req">*</span> بدقة، إذ تُعدّ البيانات المدخلة مسؤولية مقدّم الطلب.</p>
+    </div>
+
+    <div class="form-wrap" id="formWrap">
+      <div class="form-head">
+        <div>
+          <h3><span class="bar"></span> استمارة التسجيل الإلكتروني</h3>
+          <p>الوقت المتوقع للتعبئة: 5 دقائق · جميع البيانات مشفّرة</p>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="draftBtn">حفظ كمسودة</button>
+      </div>
+
+      <div class="progress" id="progress">
+        <div class="progress-fill" id="progressFill"></div>
+        <div class="p-item active" data-p="1"><div class="p-dot">01</div><span>البيانات الشخصية</span></div>
+        <div class="p-item" data-p="2"><div class="p-dot">02</div><span>بيانات المركبة</span></div>
+        <div class="p-item" data-p="3"><div class="p-dot">03</div><span>بيانات التشغيل</span></div>
+        <div class="p-item" data-p="4"><div class="p-dot">04</div><span>الوثائق</span></div>
+        <div class="p-item" data-p="5"><div class="p-dot">05</div><span>المراجعة والإقرار</span></div>
+      </div>
+
+      <form id="regForm" novalidate>
+
+        <!-- STEP 1 -->
+        <div class="step active" data-step="1">
+          <div class="step-title"><span class="bar"></span> البيانات الشخصية</div>
+          <p class="step-sub">معلوماتك الأساسية كما تظهر في الوثائق الرسمية.</p>
+
+          <div class="field" data-group-required>
+            <label>نوع التسجيل <span class="req">*</span></label>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="regType" value="كابتن / سائق" required> كابتن / سائق</label>
+              <label class="opt"><input type="radio" name="regType" value="صاحب مركبة"> صاحب مركبة</label>
+              <label class="opt"><input type="radio" name="regType" value="كابتن وصاحب مركبة"> كابتن وصاحب مركبة</label>
+            </div>
+            <small class="err"></small>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="fullName">الاسم الرباعي <span class="req">*</span></label>
+              <input type="text" id="fullName" name="fullName" placeholder="مثال: محمد أحمد علي الزعبي" required>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="nationalId">الرقم الوطني <span class="req">*</span></label>
+              <input type="text" id="nationalId" name="nationalId" placeholder="10 أرقام" data-pattern="nid" inputmode="numeric" maxlength="10" required>
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="field">
+              <label for="birthDate">تاريخ الميلاد <span class="req">*</span></label>
+              <input type="date" id="birthDate" name="birthDate" required>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="gender">الجنس <span class="req">*</span></label>
+              <select id="gender" name="gender" required>
+                <option value="">— اختر —</option>
+                <option>ذكر</option>
+                <option>أنثى</option>
+              </select>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="phone">رقم الهاتف <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="07XXXXXXXX" data-pattern="phone" required>
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="email">البريد الإلكتروني <span class="req">*</span></label>
+              <input type="email" id="email" name="email" placeholder="name@example.com" required>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="governorate">المحافظة <span class="req">*</span></label>
+              <select id="governorate" name="governorate" required>
+                <option value="">— اختر المحافظة —</option>
+                <option>عمّان</option>
+                <option>إربد</option>
+                <option>الزرقاء</option>
+                <option>البلقاء</option>
+                <option>المفرق</option>
+                <option>مادبا</option>
+                <option>جرش</option>
+                <option>عجلون</option>
+                <option>الكرك</option>
+                <option>معان</option>
+                <option>الطفيلة</option>
+                <option>العقبة</option>
+              </select>
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="address">العنوان التفصيلي</label>
+            <input type="text" id="address" name="address" placeholder="الحي / الشارع / رقم المبنى">
+            <small class="err"></small>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" data-step="2">
+          <div class="step-title"><span class="bar"></span> بيانات المركبة</div>
+          <p class="step-sub">أدخل بيانات المركبة التي تعمل عليها حالياً.</p>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="vehicleType">نوع المركبة <span class="req">*</span></label>
+              <select id="vehicleType" name="vehicleType" required>
+                <option value="">— اختر —</option>
+                <option>سيارة خاصة</option>
+                <option>سيارة أجرة</option>
+                <option>دراجة نارية</option>
+                <option>مركبة كهربائية</option>
+                <option>حافلة صغيرة / فان</option>
+              </select>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="plate">رقم اللوحة <span class="req">*</span></label>
+              <input type="text" id="plate" name="plate" placeholder="مثال: 12-34567" required>
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="field">
+              <label for="brand">الماركة <span class="req">*</span></label>
+              <input type="text" id="brand" name="brand" placeholder="تويوتا، هيونداي..." required>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="model">الموديل <span class="req">*</span></label>
+              <input type="text" id="model" name="model" placeholder="كامري، إلنترا..." required>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="year">سنة الصنع <span class="req">*</span></label>
+              <input type="number" id="year" name="year" min="1970" max="2026" placeholder="2020" required>
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="vin">رقم الهيكل (VIN)</label>
+              <input type="text" id="vin" name="vin" placeholder="17 خانة — إن وُجد">
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="color">لون المركبة</label>
+              <input type="text" id="color" name="color" placeholder="أبيض، رمادي...">
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="field" data-group-required>
+            <label>حالة الترخيص الحالية للمركبة <span class="req">*</span></label>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="licenseStatus" value="لا يوجد ترخيص" required> لا يوجد ترخيص</label>
+              <label class="opt"><input type="radio" name="licenseStatus" value="منتهية الصلاحية"> منتهية الصلاحية</label>
+              <label class="opt"><input type="radio" name="licenseStatus" value="مرخّصة للاستخدام الشخصي"> مرخّصة للاستخدام الشخصي</label>
+            </div>
+            <small class="err"></small>
+          </div>
+
+          <div class="field">
+            <label for="vehicleNotes">ملاحظات إضافية عن المركبة</label>
+            <textarea id="vehicleNotes" name="vehicleNotes" placeholder="أي معلومات تراها مهمة بشأن حالة المركبة..."></textarea>
+            <small class="err"></small>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step" data-step="3">
+          <div class="step-title"><span class="bar"></span> بيانات التشغيل</div>
+          <p class="step-sub">معلومات عن عملك الحالي على تطبيقات النقل الذكية.</p>
+
+          <div class="field" data-group-required>
+            <label>التطبيقات التي تعمل عليها <span class="req">*</span></label>
+            <div class="opt-grid">
+              <label class="opt"><input type="checkbox" name="apps" value="أوبر"> أوبر</label>
+              <label class="opt"><input type="checkbox" name="apps" value="كريم"> كريم</label>
+              <label class="opt"><input type="checkbox" name="apps" value="Bolt"> Bolt</label>
+              <label class="opt"><input type="checkbox" name="apps" value="جيني"> جيني</label>
+              <label class="opt"><input type="checkbox" name="apps" value="تطبيق آخر"> تطبيق آخر</label>
+            </div>
+            <small class="err"></small>
+          </div>
+
+          <div class="field">
+            <label for="otherApp">اسم التطبيق الآخر (إن وُجد)</label>
+            <input type="text" id="otherApp" name="otherApp" placeholder="اكتب اسم التطبيق">
+            <small class="err"></small>
+          </div>
+
+          <div class="grid-3">
+            <div class="field">
+              <label for="experience">مدة العمل في التطبيقات <span class="req">*</span></label>
+              <select id="experience" name="experience" required>
+                <option value="">— اختر —</option>
+                <option>أقل من سنة</option>
+                <option>من 1 إلى 3 سنوات</option>
+                <option>أكثر من 3 سنوات</option>
+              </select>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="dailyTrips">عدد الرحلات اليومية التقريبي <span class="req">*</span></label>
+              <select id="dailyTrips" name="dailyTrips" required>
+                <option value="">— اختر —</option>
+                <option>أقل من 5 رحلات</option>
+                <option>من 5 إلى 10 رحلات</option>
+                <option>من 11 إلى 20 رحلة</option>
+                <option>أكثر من 20 رحلة</option>
+              </select>
+              <small class="err"></small>
+            </div>
+            <div class="field">
+              <label for="workCity">مدينة العمل الرئيسية</label>
+              <input type="text" id="workCity" name="workCity" placeholder="مثال: عمّان">
+              <small class="err"></small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="prevViolations">هل سبق أن تعرّضت لمخالفة أو حجز مركبة بسبب مزاولة العمل دون ترخيص؟</label>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="prevViolations" value="نعم"> نعم</label>
+              <label class="opt"><input type="radio" name="prevViolations" value="لا" checked> لا</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step" data-step="4">
+          <div class="step-title"><span class="bar"></span> الوثائق والمستندات</div>
+          <p class="step-sub">
+            الصيغ المدعومة: JPG، PNG، PDF — بحد أقصى 5 ميجابايت للملف الواحد.
+            تأكد من وضوح الصور وقراءة جميع البيانات فيها.
+          </p>
+
+          <div class="grid-2">
+            <div class="field file-field">
+              <label>صورة الهوية الشخصية <span class="req">*</span></label>
+              <label class="file-label">
+                <input type="file" name="docId" accept="image/*,.pdf" required>
+                <span class="file-ic">🪪</span>
+                <span class="file-txt">اختر ملفاً أو اسحبه هنا</span>
+              </label>
+              <small class="err"></small>
+            </div>
+
+            <div class="field file-field">
+              <label>رخصة القيادة <span class="req">*</span></label>
+              <label class="file-label">
+                <input type="file" name="docLicense" accept="image/*,.pdf" required>
+                <span class="file-ic">🚗</span>
+                <span class="file-txt">اختر ملفاً أو اسحبه هنا</span>
+              </label>
+              <small class="err"></small>
+            </div>
+
+            <div class="field file-field">
+              <label>سند ملكية المركبة / أوراقها <span class="req">*</span></label>
+              <label class="file-label">
+                <input type="file" name="docOwnership" accept="image/*,.pdf" required>
+                <span class="file-ic">📄</span>
+                <span class="file-txt">اختر ملفاً أو اسحبه هنا</span>
+              </label>
+              <small class="err"></small>
+            </div>
+
+            <div class="field file-field">
+              <label>صورة المركبة من الأمام</label>
+              <label class="file-label">
+                <input type="file" name="docCarFront" accept="image/*">
+                <span class="file-ic">📷</span>
+                <span class="file-txt">اختر ملفاً أو اسحبه هنا</span>
+              </label>
+              <small class="err"></small>
+            </div>
+
+            <div class="field file-field">
+              <label>صورة المركبة من الخلف (تظهر اللوحة)</label>
+              <label class="file-label">
+                <input type="file" name="docCarBack" accept="image/*">
+                <span class="file-ic">📷</span>
+                <span class="file-txt">اختر ملفاً أو اسحبه هنا</span>
+              </label>
+              <small class="err"></small>
+            </div>
+
+            <div class="field file-field">
+              <label>شهادة الفحص الفني (إن وُجدت)</label>
+              <label class="file-label">
+                <input type="file" name="docInspection" accept="image/*,.pdf">
+                <span class="file-ic">🧾</span>
+                <span class="file-txt">اختر ملفاً أو اسحبه هنا</span>
+              </label>
+              <small class="err"></small>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step" data-step="5">
+          <div class="step-title"><span class="bar"></span> المراجعة والإقرار</div>
+          <p class="step-sub">يرجى مراجعة بياناتك بعناية قبل الإرسال، إذ لا يمكن تعديلها بعد التقديم.</p>
+
+          <div class="summary-box" id="summary"></div>
+
+          <div class="field" data-group-required>
+            <label class="declare">
+              <input type="checkbox" name="declareTruth" required>
+              <span>
+                أُقرّ بأن جميع البيانات والوثائق المقدّمة في هذا الطلب صحيحة وكاملة، وأتحمّل
+                المسؤولية القانونية الكاملة عن أي بيان غير صحيح أو مضلّل، وأوافق على قيام الجهة
+                المختصة بالتحقق منها.
+              </span>
+            </label>
+            <small class="err"></small>
+          </div>
+
+          <div class="field" data-group-required>
+            <label class="declare">
+              <input type="checkbox" name="declarePrivacy" required>
+              <span>
+                أوافق على معالجة بياناتي الشخصية واستخدامها للأغراض المتعلقة بتصويب الوضع
+                التشغيلي وإصدار التراخيص، وفقاً لأحكام حماية البيانات الشخصية المعمول بها.
+              </span>
+            </label>
+            <small class="err"></small>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button type="button" class="btn btn-ghost" id="prevBtn" disabled>→ السابق</button>
+          <div class="spacer"></div>
+          <button type="button" class="btn btn-primary" id="nextBtn">التالي ←</button>
+          <button type="submit" class="btn btn-accent" id="submitBtn" style="display:none">إرسال الطلب ←</button>
+        </div>
+      </form>
+
+      <div class="success" id="success">
+        <div class="suc-icon">✓</div>
+        <h3>تم إرسال طلبك بنجاح</h3>
+        <p>
+          شكراً لك. تم استلام طلب تصويب الوضع التشغيلي الخاص بك، وستقوم الجهة المختصة
+          بمراجعة البيانات والوثائق خلال 48 ساعة عمل.
+        </p>
+        <div class="ref-box">
+          <span>الرقم المرجعي لطلبك</span>
+          <strong id="refNumber">—</strong>
+        </div>
+        <div class="next-steps">
+          <h4><span class="bar"></span> ما هي الخطوة التالية؟</h4>
+          <ol>
+            <li>احتفظ بالرقم المرجعي لمتابعة حالة طلبك.</li>
+            <li>سيصلك إشعار عبر الرسائل النصية والبريد الإلكتروني المسجّل.</li>
+            <li>في حال نقص أي وثيقة سيتم التواصل معك عبر واتساب لاستكمالها.</li>
+            <li>بعد الموافقة، يتم تحديد موعد لاستكمال الإجراءات واستلام الترخيص.</li>
+          </ol>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ طباعة الإيصال</button>
+          <button type="button" class="btn btn-ghost" id="newReqBtn">تقديم طلب جديد</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section id="faq" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="sec-head">
+      <span class="tag">مساعدة</span>
+      <h3>الأسئلة الشائعة</h3>
+      <p>إجابات عن أكثر الاستفسارات تكراراً من الكباتن وأصحاب المركبات.</p>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>هل التسجيل في المنصة مجاني؟</summary>
+        <p>نعم، التسجيل مجاني بالكامل ولا تترتب عليه أي رسوم. وتُحصَّل أي رسوم ترخيص رسمية لاحقاً عبر القنوات الحكومية المعتمدة فقط.</p>
+      </details>
+      <details>
+        <summary>هل سيتم اتخاذ إجراءات قانونية بحقي عند التسجيل؟</summary>
+        <p>لا. الهدف من المنصة هو تمكين الكباتن وأصحاب المركبات من تصويب أوضاعهم. التسجيل الطوعي يُعدّ مؤشراً على حسن النية، ويُمنح المتقدّم مهلة نظامية لاستكمال الإجراءات دون غرامات تأخير.</p>
+      </details>
+      <details>
+        <summary>ما الوثائق المطلوبة لتقديم الطلب؟</summary>
+        <p>صورة الهوية الشخصية، رخصة القيادة، وسند ملكية المركبة أو أوراقها. ويُفضَّل إرفاق صور واضحة للمركبة تظهر اللوحة الأمامية والخلفية، وشهادة الفحص الفني إن وُجدت.</p>
+      </details>
+      <details>
+        <summary>كم تستغرق عملية دراسة الطلب؟</summary>
+        <p>تستغرق المراجعة الأولية حتى 48 ساعة عمل من تاريخ الإرسال. وقد تزيد المدة في حال الحاجة إلى استكمال وثائق ناقصة أو التحقق من بيانات معينة.</p>
+      </details>
+      <details>
+        <summary>هل يمكنني العمل أثناء دراسة الطلب؟</summary>
+        <p>يُمنح مقدّم الطلب إشعاراً مؤقتاً يتيح له الاستمرار في العمل بشكل منظّم خلال فترة المراجعة، شرط الالتزام بالأنظمة المرورية وتعليمات الجهة المختصة.</p>
+      </details>
+      <details>
+        <summary>ماذا لو كانت مركبتي مستأجرة أو ليست ملكي؟</summary>
+        <p>يمكنك التسجيل ككابتن، مع إرفاق عقد الإيجار أو تفويض خطي من المالك الأصلي، إضافة إلى صورة من أوراق المركبة. ويجب أن يكون المالك على علم بالتسجيل.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-head">
+      <span class="tag">الدعم والتواصل</span>
+      <h3>تواصل معنا مباشرة</h3>
+      <p>فريق الدعم متاح لمساعدتك في إتمام عملية التسجيل عبر واتساب والبريد الإلكتروني.</p>
+    </div>
+
+    <div class="contact-grid">
+      <a class="contact-card" href="https://wa.me/96278747007" target="_blank" rel="noopener">
+        <div class="cc-ic cc-wa">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </div>
+        <h4>واتساب الدعم الأول</h4>
+        <p>للتواصل السريع والاستفسارات الفورية</p>
+        <span class="num-badge">+962 78 747 007</span>
+      </a>
+
+      <a class="contact-card" href="https://wa.me/962797971341" target="_blank" rel="noopener">
+        <div class="cc-ic cc-wa">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </div>
+        <h4>واتساب الدعم الثاني</h4>
+        <p>للمتابعة والاستفسار عن حالة الطلب</p>
+        <span class="num-badge">+962 79 797 1341</span>
+      </a>
+
+      <a class="contact-card" href="mailto:muatazouda@gmail.com">
+        <div class="cc-ic cc-email">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <path d="m2 7 10 7 10-7"/>
+          </svg>
+        </div>
+        <h4>البريد الإلكتروني</h4>
+        <p>لإرسال الوثائق والاستفسارات التفصيلية</p>
+        <span class="num-badge email">muatazouda@gmail.com</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FLOATING WHATSAPP ==================== -->
+<div class="wa-float">
+  <a class="wa-btn" href="https://wa.me/96278747007" target="_blank" rel="noopener" aria-label="واتساب">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    <span class="wa-tip">تواصل عبر واتساب</span>
+  </a>
+</div>
+
+<!-- ==================== ADMIN MODAL ==================== -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal">
+    <button type="button" class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+    <h3><span class="ic-lock">🔒</span> دخول الأدمن</h3>
+    <p class="sub">هذه المنطقة مخصصة للمشرفين فقط لعرض الإحصائيات الحساسة.</p>
+
+    <label for="adminUser">اسم المستخدم</label>
+    <input type="text" id="adminUser" placeholder="admin" autocomplete="off">
+
+    <label for="adminPass">كلمة المرور</label>
+    <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off">
+
+    <div class="modal-msg" id="modalMsg"></div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="modalCancel">إلغاء</button>
+      <button type="button" class="btn btn-primary" id="modalLogin">دخول</button>
+    </div>
+    <p class="modal-hint">بيانات الدخول التجريبية: <strong>admin</strong> / <strong>admin2025</strong></p>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="foot-inner">
+    <div>
+      <h5><span class="bar"></span> منصة تشغيل الكباتن</h5>
+      <p>
+        منصة إلكترونية وطنية تهدف إلى تشغيل الكباتن وأصحاب المركبات بشكل قانوني وتنظيمي،
+        وتمكينهم من مزاولة نشاطهم وفق الأطر المعتمدة، بما يحقق السلامة المرورية وحماية
+        حقوق جميع الأطراف.
+      </p>
+      <a class="foot-wa" href="https://wa.me/96278747007" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+        </svg>
+        +962 78 747 007
+      </a>
+    </div>
+    <div>
+      <h5><span class="bar"></span> روابط سريعة</h5>
+      <ul>
+        <li><a href="#how">كيف تعمل المنصة</a></li>
+        <li><a href="#register">استمارة التسجيل</a></li>
+        <li><a href="#faq">الأسئلة الشائعة</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5><span class="bar"></span> معلومات قانونية</h5>
+      <ul>
+        <li><a href="#">شروط الاستخدام</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+        <li><a href="#">حماية البيانات الشخصية</a></li>
+        <li><a href="#">الأنظمة والتعليمات</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    © 2025 منصة تشغيل الكباتن — جميع الحقوق محفوظة · تشغيل قانوني وتنظيمي معتمد
+    <div>
+      <button type="button" class="foot-admin" data-open-admin="any">🔒 دخول الأدمن</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ==================== المتغيرات ==================== */
+const form       = document.getElementById('regForm');
+const steps      = document.querySelectorAll('.step');
+const pItems     = document.querySelectorAll('.p-item');
+const progressFill = document.getElementById('progressFill');
+const prevBtn    = document.getElementById('prevBtn');
+const nextBtn    = document.getElementById('nextBtn');
+const submitBtn  = document.getElementById('submitBtn');
+const TOTAL      = steps.length;
+let current      = 1;
+
+/* ==================== بيانات الأدمن (تجريبي فقط) ==================== */
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'admin2025';
+/* الأرقام الحقيقية — تظهر للأدمن فقط */
+const REAL_STATS = {
+  captains: 12480,
+  legalized: 9620
+};
+let isAdmin = false;
+
+/* ==================== التنقل ==================== */
+function showStep(n){
+  current = n;
+  steps.forEach(s => s.classList.toggle('active', +s.dataset.step === n));
+  pItems.forEach(p => {
+    const i = +p.dataset.p;
+    p.classList.toggle('active', i === n);
+    p.classList.toggle('done', i < n);
+    const dot = p.querySelector('.p-dot');
+    dot.textContent = i < n ? '✓' : String(i).padStart(2,'0');
+  });
+
+  progressFill.style.width = ((n - 1) * 20) + '%';
+
+  prevBtn.disabled = n === 1;
+  nextBtn.style.display   = n === TOTAL ? 'none' : 'inline-flex';
+  submitBtn.style.display = n === TOTAL ? 'inline-flex' : 'none';
+
+  if(n === TOTAL) buildSummary();
+
+  document.getElementById('formWrap')
+    .scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ==================== أدوات الخطأ ==================== */
+function setError(el, msg){
+  const field = el.closest('.field');
+  if(!field) return;
+  field.classList.add('error');
+  const err = field.querySelector('.err');
+  if(err) err.textContent = msg;
+}
+function clearErrors(container){
+  container.querySelectorAll('.field').forEach(f => {
+    f.classList.remove('error');
+    const e = f.querySelector('.err');
+    if(e) e.textContent = '';
+  });
+}
+function clearError(el){
+  const field = el.closest('.field');
+  if(field) field.classList.remove('error');
+}
+
+/* ==================== التحقق ==================== */
+function validateStep(n){
+  const box = document.querySelector('.step[data-step="'+n+'"]');
+  clearErrors(box);
+  let ok = true;
+  let firstError = null;
+
+  box.querySelectorAll('input:not([type=radio]):not([type=checkbox]), select, textarea').forEach(el => {
+    const val = (el.value || '').trim();
+
+    if(el.hasAttribute('required') && !val){
+      setError(el, el.type === 'file' ? 'يرجى إرفاق هذا المستند' : 'هذا الحقل مطلوب');
+      ok = false; firstError = firstError || el;
+      return;
+    }
+    if(!val) return;
+
+    if(el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)){
+      setError(el, 'يرجى إدخال بريد إلكتروني صحيح');
+      ok = false; firstError = firstError || el;
+    }
+    if(el.dataset.pattern === 'nid' && !/^\d{10}$/.test(val)){
+      setError(el, 'الرقم الوطني يجب أن يتكوّن من 10 أرقام');
+      ok = false; firstError = firstError || el;
+    }
+    if(el.dataset.pattern === 'phone' && !/^[0-9+\-\s]{9,15}$/.test(val)){
+      setError(el, 'يرجى إدخال رقم هاتف صحيح');
+      ok = false; firstError = firstError || el;
+    }
+    if(el.type === 'number' && el.id === 'year'){
+      const y = +val;
+      if(y < 1970 || y > 2026){
+        setError(el, 'يرجى إدخال سنة صنع صحيحة');
+        ok = false; firstError = firstError || el;
+      }
+    }
+  });
+
+  const radioNames = new Set(
+    [...box.querySelectorAll('input[type=radio][required]')].map(r => r.name)
+  );
+  radioNames.forEach(name => {
+    const group = box.querySelectorAll('input[type=radio][name="'+name+'"]');
+    if(group.length && ![...group].some(x => x.checked)){
+      setError(group[0], 'يرجى اختيار أحد الخيارات');
+      ok = false; firstError = firstError || group[0];
+    }
+  });
+
+  box.querySelectorAll('.field[data-group-required]').forEach(f => {
+    if(!f.querySelector('input[type=checkbox]:checked')){
+      f.classList.add('error');
+      const e = f.querySelector('.err');
+      if(e) e.textContent = 'يرجى اختيار خيار واحد على الأقل';
+      ok = false; firstError = firstError || f.querySelector('input[type=checkbox]');
+    }
+  });
+
+  if(!ok && firstError){
+    firstError.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  return ok;
+}
+
+nextBtn.addEventListener('click', () => {
+  if(validateStep(current) && current < TOTAL) showStep(current + 1);
+});
+prevBtn.addEventListener('click', () => {
+  if(current > 1) showStep(current - 1);
+});
+
+/* ==================== رفع الملفات ==================== */
+document.querySelectorAll('input[type=file]').forEach(inp => {
+  inp.addEventListener('change', () => {
+    const wrap = inp.closest('.file-field');
+    const txt  = wrap.querySelector('.file-txt');
+    if(inp.files.length){
+      const f = inp.files[0];
+      if(f.size > 5 * 1024 * 1024){
+        alert('حجم الملف يتجاوز 5 ميجابايت. يرجى اختيار ملف أصغر.');
+        inp.value = '';
+        txt.textContent = 'اختر ملفاً أو اسحبه هنا';
+        wrap.classList.remove('has-file');
+        return;
+      }
+      txt.textContent = '✓ ' + f.name;
+      wrap.classList.add('has-file');
+      clearError(inp);
+    } else {
+      txt.textContent = 'اختر ملفاً أو اسحبه هنا';
+      wrap.classList.remove('has-file');
+    }
+  });
+});
+
+/* ==================== الملخّص ==================== */
+const SUMMARY_FIELDS = [
+  ['regType','نوع التسجيل'],
+  ['fullName','الاسم الرباعي'],
+  ['nationalId','الرقم الوطني'],
+  ['birthDate','تاريخ الميلاد'],
+  ['gender','الجنس'],
+  ['phone','رقم الهاتف'],
+  ['email','البريد الإلكتروني'],
+  ['governorate','المحافظة'],
+  ['address','العنوان التفصيلي'],
+  ['vehicleType','نوع المركبة'],
+  ['brand','الماركة'],
+  ['model','الموديل'],
+  ['year','سنة الصنع'],
+  ['plate','رقم اللوحة'],
+  ['vin','رقم الهيكل'],
+  ['color','اللون'],
+  ['licenseStatus','حالة الترخيص'],
+  ['experience','مدة العمل'],
+  ['dailyTrips','عدد الرحلات اليومية'],
+  ['workCity','مدينة العمل'],
+  ['prevViolations','مخالفات سابقة']
+];
+const DOC_LABELS = {
+  docId:'الهوية الشخصية',
+  docLicense:'رخصة القيادة',
+  docOwnership:'سند الملكية',
+  docCarFront:'صورة المركبة (أمام)',
+  docCarBack:'صورة المركبة (خلف)',
+  docInspection:'شهادة الفحص الفني'
+};
+
+function val(name){
+  const el = form.elements[name];
+  if(!el) return '—';
+  if(el instanceof RadioNodeList){
+    const checked = [...form.querySelectorAll('input[name="'+name+'"]:checked')][0];
+    return checked ? checked.value : '—';
+  }
+  return (el.value || '').trim() || '—';
+}
+
+function buildSummary(){
+  const box = document.getElementById('summary');
+  box.innerHTML = '';
+
+  const groups = [
+    { title:'البيانات الشخصية', keys:['regType','fullName','nationalId','birthDate','gender','phone','email','governorate','address'] },
+    { title:'بيانات المركبة',   keys:['vehicleType','brand','model','year','plate','vin','color','licenseStatus'] },
+    { title:'بيانات التشغيل',   keys:['experience','dailyTrips','workCity','prevViolations'] }
+  ];
+
+  groups.forEach(g => {
+    const head = document.createElement('div');
+    head.className = 'summary-group';
+    head.textContent = g.title;
+    box.appendChild(head);
+
+    g.keys.forEach(k => {
+      const label = SUMMARY_FIELDS.find(f => f[0] === k);
+      if(!label) return;
+      const v = val(k);
+      box.insertAdjacentHTML('beforeend',
+        `<div class="summary-row"><span class="k">${label[1]}</span><span class="v">${escapeHtml(v)}</span></div>`);
+    });
+  });
+
+  const apps = [...form.querySelectorAll('input[name="apps"]:checked')].map(x => x.value);
+  const other = val('otherApp');
+  if(other !== '—') apps.push(other);
+  box.insertAdjacentHTML('beforeend',
+    `<div class="summary-group">التطبيقات</div>
+     <div class="summary-row"><span class="k">التطبيقات العاملة عليها</span>
+     <span class="v">${escapeHtml(apps.length ? apps.join('، ') : '—')}</span></div>`);
+
+  let docsHtml = '<div class="summary-group">الوثائق المرفقة</div>';
+  Object.keys(DOC_LABELS).forEach(n => {
+    const inp = form.elements[n];
+    const has = inp && inp.files && inp.files.length;
+    docsHtml += `<div class="summary-row"><span class="k">${DOC_LABELS[n]}</span>
+      <span class="v" style="color:${has ? 'var(--success)' : 'var(--muted)'}">
+      ${has ? '✓ ' + escapeHtml(inp.files[0].name) : 'لم يُرفق'}</span></div>`;
+  });
+  box.insertAdjacentHTML('beforeend', docsHtml);
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+
+/* ==================== الإرسال ==================== */
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  if(!validateStep(TOTAL)) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'جارٍ الإرسال...';
+
+  setTimeout(() => {
+    const d = new Date();
+    const y = d.getFullYear();
+    const rand = Math.floor(100000 + Math.random() * 900000);
+    const ref = `CAP-${y}-${rand}`;
+    document.getElementById('refNumber').textContent = ref;
+
+    form.style.display = 'none';
+    document.querySelector('.form-head').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+    document.getElementById('success').classList.add('show');
+
+    try{ localStorage.removeItem('captainDraft'); }catch(_){}
+
+    document.getElementById('formWrap')
+      .scrollIntoView({behavior:'smooth', block:'start'});
+  }, 1200);
+});
+
+/* ==================== المسودة ==================== */
+document.getElementById('draftBtn').addEventListener('click', () => {
+  const data = {};
+  form.querySelectorAll('input, select, textarea').forEach(el => {
+    if(el.type === 'file') return;
+    if(el.type === 'radio' || el.type === 'checkbox'){
+      data[el.name + '::' + el.value] = el.checked;
+    } else {
+      data[el.name] = el.value;
+    }
+  });
+  try{
+    localStorage.setItem('captainDraft', JSON.stringify(data));
+    alert('تم حفظ المسودة بنجاح. يمكنك العودة لاستكمالها لاحقاً من نفس المتصفح.');
+  }catch(_){
+    alert('تعذّر حفظ المسودة في هذا المتصفح.');
+  }
+});
+
+function loadDraft(){
+  let raw;
+  try{ raw = localStorage.getItem('captainDraft'); }catch(_){ return; }
+  if(!raw) return;
+  try{
+    const data = JSON.parse(raw);
+    Object.keys(data).forEach(key => {
+      if(key.includes('::')){
+        const [name, value] = key.split('::');
+        const el = form.querySelector(`input[name="${name}"][value="${value}"]`);
+        if(el) el.checked = data[key];
+      } else {
+        const el = form.elements[key];
+        if(el && !(el instanceof RadioNodeList)) el.value = data[key];
+      }
+    });
+  }catch(_){}
+}
+
+document.getElementById('newReqBtn').addEventListener('click', () => {
+  location.reload();
+});
+
+/* ==================== العدّادات العامة ==================== */
+function animateCount(el){
+  const target = +el.dataset.count;
+  const dur = 1600;
+  const start = performance.now();
+  const isLarge = target > 1000;
+  function tick(now){
+    const p = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const v = Math.round(target * eased);
+    el.textContent = isLarge ? v.toLocaleString('en-US') : v;
+    if(p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      animateCount(en.target);
+      io.unobserve(en.target);
+    }
+  });
+}, { threshold:.5 });
+
+document.querySelectorAll('.digi-item:not(.locked) [data-count], .stat-card [data-count]').forEach(el => io.observe(el));
+
+/* ==================== الأدمن ==================== */
+const adminModal = document.getElementById('adminModal');
+const modalMsg   = document.getElementById('modalMsg');
+const adminUser  = document.getElementById('adminUser');
+const adminPass  = document.getElementById('adminPass');
+
+function openAdmin(){
+  adminModal.classList.add('show');
+  modalMsg.className = 'modal-msg';
+  modalMsg.textContent = '';
+  adminUser.value = '';
+  adminPass.value = '';
+  setTimeout(()=>adminUser.focus(), 100);
+}
+function closeAdmin(){
+  adminModal.classList.remove('show');
+}
+
+document.querySelectorAll('[data-open-admin]').forEach(btn => {
+  btn.addEventListener('click', openAdmin);
+});
+document.getElementById('modalClose').addEventListener('click', closeAdmin);
+document.getElementById('modalCancel').addEventListener('click', closeAdmin);
+adminModal.addEventListener('click', e => {
+  if(e.target === adminModal) closeAdmin();
+});
+
+function revealStats(){
+  const statCap = document.getElementById('statCaptains');
+  const statLeg = document.getElementById('statLegalized');
+  if(!isAdmin) return;
+
+  statCap.classList.add('revealed');
+  statCap.classList.remove('locked');
+  statCap.querySelector('.val').textContent = REAL_STATS.captains.toLocaleString('en-US');
+  statCap.querySelector('.val').dataset.count = REAL_STATS.captains;
+  statCap.querySelector('.admin-chip')?.remove();
+
+  statLeg.classList.add('revealed');
+  statLeg.classList.remove('locked');
+  statLeg.querySelector('.val').textContent = REAL_STATS.legalized.toLocaleString('en-US');
+  statLeg.querySelector('.val').dataset.count = REAL_STATS.legalized;
+  statLeg.querySelector('.admin-chip')?.remove();
+
+  /* تشغيل الأنيميشن */
+  animateCount(statCap.querySelector('.val'));
+  animateCount(statLeg.querySelector('.val'));
+}
+
+document.getElementById('modalLogin').addEventListener('click', () => {
+  const u = adminUser.value.trim();
+  const p = adminPass.value;
+
+  if(u === ADMIN_USER && p === ADMIN_PASS){
+    isAdmin = true;
+    modalMsg.className = 'modal-msg ok';
+    modalMsg.textContent = '✓ تم الدخول بنجاح. جارٍ عرض الإحصائيات...';
+    setTimeout(() => {
+      closeAdmin();
+      revealStats();
+      document.querySelector('.digi-strip')
+        .scrollIntoView({behavior:'smooth', block:'center'});
+    }, 700);
+  } else {
+    modalMsg.className = 'modal-msg err';
+    modalMsg.textContent = '✕ بيانات الدخول غير صحيحة. حاول مرة أخرى.';
+    adminPass.value = '';
+    adminPass.focus();
+  }
+});
+
+adminPass.addEventListener('keydown', e => {
+  if(e.key === 'Enter') document.getElementById('modalLogin').click();
+});
+adminUser.addEventListener('keydown', e => {
+  if(e.key === 'Enter') adminPass.focus();
+});
+
+/* ==================== التشغيل ==================== */
+loadDraft();
+showStep(1);
+
+form.addEventListener('input', e => {
+  const f = e.target.closest('.field');
+  if(f && f.classList.contains('error')){
+    f.classList.remove('error');
+    const er = f.querySelector('.err');
+    if(er) er.textContent = '';
+  }
+});
+</script>
+</body>
+</html>
